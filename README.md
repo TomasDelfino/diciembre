@@ -1,8 +1,26 @@
-# Diciembre - Organización de Computadoras
+# Diciembre - Febrero
 
-## Ejercicio
+## Proyecto Informático I
 
-1. Implementar en ensamblador de MIPS 32 el siguiente programa de C.
+### Ejercicio
+
+Construir una aplicación web con Node/Express/Pug que cumpla con las siguientes pautas:
+- El backend debe estar hecho en Node/Express.
+- El frontend se realiza con plantillas de Pug.
+- Para la base de datos se puede usar MongoDB, PostgreSQL o MySQL/MariaDB.
+- El código de la app debe estar alojado en GitHub.
+- Realizar el _deploy_ de la app a Heroku.
+- El estilo de la app puede estar basado en algún framework de CSS como Bootstrap.
+- **Extra**: es deseable que la app tenga algún tipo de autenticación y autorización, usando Passport por ejemplo.
+
+La aplicación web es a elección, pero se puede continuar el trabajo sobre el ejemplo de la trivia con las preguntas y respuestas en la base de datos. 
+
+## Organización de Computadoras
+
+### Ejercicio
+
+1. Hacer un fork de este repositorio y usar el archivo `solucion.asm` como plantilla para resolver el ejercicio.
+2. Implementar en ensamblador de MIPS 32 el siguiente programa de C.
 
 ```c
 #include <stdio.h>
@@ -41,11 +59,12 @@ int main() {
   return 1;
 }
 ```
-2. Entender la implementación propuesta y defenderla de manera oral.
-3. La solución propuesta tiene que implementar las funciones `swap` y `sort` tal como se realiza en el programa de C.
-4. Usar instrucciones de la siguiente lista únicamente:
+3. Entender la implementación propuesta y defenderla de manera oral.
+4. La solución propuesta tiene que implementar las funciones `swap` y `sort` tal como se realiza en el programa de C.
+5. Usar instrucciones de la siguiente lista únicamente:
   - add
   - addi
+  - sub
   - sw
   - lw
   - li
