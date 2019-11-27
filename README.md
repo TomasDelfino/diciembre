@@ -7,13 +7,20 @@
 Construir una aplicación web con Node/Express/Pug que cumpla con las siguientes pautas:
 - El backend debe estar hecho en Node/Express.
 - El frontend se realiza con plantillas de Pug.
+- Todos los assets estáticos deben estar en la carpeta `public`.
+- Si es necesario usar scripts del lado del cliente para manejar distintos eventos de la app.
 - Para la base de datos se puede usar MongoDB, PostgreSQL o MySQL/MariaDB.
+- No es necesario usar un ORM/ODM, pero se recomienda trabajar con MongoDB y Mongoose.
 - El código de la app debe estar alojado en GitHub.
 - Realizar el _deploy_ de la app a Heroku.
 - El estilo de la app puede estar basado en algún framework de CSS como Bootstrap.
+- **Extra**: se suman puntos por implementar una API estilo REST para operar sobre la base de datos con JSON.
 - **Extra**: es deseable que la app tenga algún tipo de autenticación y autorización, usando Passport por ejemplo.
 
-La aplicación web es a elección, pero se puede continuar el trabajo sobre el ejemplo de la trivia con las preguntas y respuestas en la base de datos. 
+La aplicación web es a elección, pero se puede continuar el trabajo sobre el ejemplo de la trivia con las preguntas y respuestas en la base de datos. La app debe tener como mínimo dos tablas/colecciones que estén relacionadas de alguna manera.
+
+El ejemplo de la trivia se puede encontrar en [Heroku](https://trivia-35.herokuapp.com).
+El código está disponible en GitHub, seguir el link en el footer de la app.
 
 ## Organización de Computadoras
 
@@ -71,3 +78,11 @@ int main() {
   - la
   - syscall
   - `completar lista...`
+
+### Arrays en ensamblador
+
+Breve explicación, completar...
+
+### Funciones y el _call stack_
+
+Breve explicación, completar...
