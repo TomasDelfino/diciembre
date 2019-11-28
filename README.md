@@ -83,11 +83,11 @@ int main() {
 
 No hay distinción entre arrays y variables simples en lenguaje ensamblador. Un array es simplemente una lista de variables que están contiguas en memoria. El manejo de los índices que se hace en C debe hacerse manualmente.
 
-![Array en memoria](img/array.png "Array en memoria") 
+![Array en memoria](img/array.png "Array en memoria")
 
 El siguiente ejemplo declara la etiqueta `array` que contiene la dirección base del array, es decir, la dirección de memoria del primer elemento: `array[0]`. El ciclo imprime cada número del array separados por un espacio. Cada elemento al ser números enteros de 32 bits ocupan 4 bytes, por eso las direcciones van de 4 en 4.
 
-```mips
+```mipsasm
 .data                              # data segment
 sp: .asciiz " "
 array: .word 1, 2, 3, 4, 5, 6      # int array[] = {1, 2, 3, 4, 5, 6}
