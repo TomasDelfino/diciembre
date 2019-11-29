@@ -72,12 +72,21 @@ int main() {
   - add
   - addi
   - sub
+  - mul
+  - move
   - sw
   - lw
   - li
   - la
+  - slt
+  - and
+  - bne
+  - beq
+  - bge
+  - j
+  - jal
+  - jr
   - syscall
-  - `completar lista...`
 
 ### Arrays en ensamblador
 
@@ -87,7 +96,7 @@ No hay distinción entre arrays y variables simples en lenguaje ensamblador. Un 
 
 El siguiente ejemplo declara la etiqueta `array` que contiene la dirección base del array, es decir, la dirección de memoria del primer elemento: `array[0]`. El ciclo imprime cada número del array separados por un espacio. Cada elemento al ser números enteros de 32 bits ocupan 4 bytes, por eso las direcciones van de 4 en 4.
 
-```mipsasm
+```assembly
 .data                              # data segment
 sp: .asciiz " "
 array: .word 1, 2, 3, 4, 5, 6      # int array[] = {1, 2, 3, 4, 5, 6}
