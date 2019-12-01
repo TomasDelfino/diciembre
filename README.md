@@ -125,4 +125,54 @@ exit:  li       $v0, 10            # syscall code exit
 
 ### Funciones y el _call stack_
 
-Breve explicación, completar...
+Una función es una subrutina de nuestro código que llamamos desde distintas partes del mismo.
+En ensamblador, para saber a dónde debe retornar una función guardamos el valor del PC en un registro especial. En MIPS es el registro `$ra` por _return address_.
+
+```assembly
+sum:      add  $v0, $a0, $a1      # return a + b
+          jr   $ra                # return
+```
+
+La función que está arriba ilustra varias cosas importantes. En primer lugar no hay nada de particular en cada registro de los 32 registros de MIPS, excepto por `$zero`. Para que distintos programadores puedan trabajar entre sí, se adoptan ciertas convenciones sobre el uso de los registros y el uso de la pila de llamadas.
+
+Los registros `$a0`, `$a1`, `$a2` y `$a3` se usan para pasar argumentos a una función. El código que llama a la función setea los valores de estos registros y luego la invoca. Los registros `$v0` y `$v1` se usan para devolver valores de una función. En el ejemplo de la suma está claro que `$a0` y a `$a1` equivalen a `a` y `b` y que `$v0` equivale a `return a + b`.
+
+```assembly
+   li   $a0, 3             # a = 3
+   li   $a1, 7             # b = 7
+   jal  sum                # sum(3, 7)
+```
+
+Lo que hace la instrucción `jal` es guardar el PC en `$ra` y apuntar al código de la función en cuestión. Por último los registros `$s0 - $s7` y los `$t0 - $t9` se usan para propósitos generales, con la diferencia de que los primeros, llamados _saved temporaries_ se preservan a través de llamadas a funciones.
+
+Lo que quiero decir con esto último es que pasa si mi función `fact` por ejemplo, usa `$ra` para saber a donde volver cuando termine de ejecutarse, pero a su vez llama a otra función.
+
+```assembly
+fact:     addi $sp, $sp, -8       # ajustar call stack para 2 words
+          sw   $ra, 4($sp)        # push return address
+          sw   $a0, 0($sp)        # push n (argumento)
+          slti $t0, $a0, 1        # if (n < 1)
+          beq  $t0, $zero, else   # if (n >= 1) goto else
+          li   $v0, 1             # return 1
+          lw   $a0, 0($sp)        # pop n
+          lw   $ra, 4($sp)        # pop return address
+          addi $sp, $sp, 8        # ajustar $sp despues de quitar 2 words
+          jr   $ra                # return
+else:     addi $a0, $a0, -1       # n = n - 1
+          jal  fact               # fact(n - 1)
+          lw   $a0, 0($sp)        # pop n
+          lw   $ra, 4($sp)        # pop return address
+          addi $sp, $sp, 8        # ajustar $sp despues de quitar 2 words
+          mul  $v0, $a0, $v0      # return n * fact(n - 1)
+          jr   $ra                # return
+```
+
+Después de `else` en la línea `jal fact` la función está sobreescribiendo `$ra` y cuando tenga que regresar al código de la función `main` no va a saber como. Para este tipo de situaciones la solución se conoce como pila de llamadas o _call stack_.
+
+En cada llamada a una función siempre hay dos partes del código involucradas. La función que llama la función y la función que está siendo llamada. Nos referimos en inglés a estas dos partes como _caller_ y _callee_.
+
+El _caller_ es responsable de guardar los registros `$t0 - $t9`, `$a0 - $a3` y `$v0 - $v1`, si fuera necesario. El _callee_ puede sobreescribir esos registros, se supone que si el código que llamó a la función los necesita ya los guardó.
+
+El _callee_ es responsable de guardar los `$s0 - $s7` y `$ra`. Si los va a usar debe guardarlos. Si el _callee_, osea la función que está siendo invocada, no llama a otra función en su código no necesita guardar `$ra`, y solo debe guardar los registros que usa. La función suma de arriba es un ejemplo de función que no llama a otra función. En cambio factorial es una función recursiva (una función que se llama a sí misma) y su código tiene que preservar registros en memoria.
+
+La forma de guardar estos registros para después restaurarlos es en memoria principal, en una estructura conocida como _call stack_ (pila de llamadas). En cada llamada a una función, si hay necesidad de preservar registros se modifica esta pila. Esto se hace al principio del código de la función y al final justo antes del `return` que en MIPS lo realizamos con `jr $ra`.
