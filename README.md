@@ -22,6 +22,8 @@ La aplicación web es a elección, pero se puede continuar el trabajo sobre el e
 El ejemplo de la trivia se puede encontrar en [Heroku](https://trivia-35.herokuapp.com).
 El código está disponible en GitHub, seguir el link en el footer de la app.
 
+Cada alumno debe presentar su aplicación en el período de diciembre - febrero. El trabajo es individual. Además de presentar la aplicación funcionando debe defender de manera oral el trabajo realizado. Es decir, el alumno debe entender el código o la mayor parte del mismo y dar evidencias de que realizó el trabajo honestamente.
+
 ## Organización de Computadoras
 
 ### Ejercicio
@@ -176,3 +178,7 @@ El _caller_ es responsable de guardar los registros `$t0 - $t9`, `$a0 - $a3` y `
 El _callee_ es responsable de guardar los `$s0 - $s7` y `$ra`. Si los va a usar debe guardarlos. Si el _callee_, osea la función que está siendo invocada, no llama a otra función en su código no necesita guardar `$ra`, y solo debe guardar los registros que usa. La función suma de arriba es un ejemplo de función que no llama a otra función. En cambio factorial es una función recursiva (una función que se llama a sí misma) y su código tiene que preservar registros en memoria.
 
 La forma de guardar estos registros para después restaurarlos es en memoria principal, en una estructura conocida como _call stack_ (pila de llamadas). En cada llamada a una función, si hay necesidad de preservar registros se modifica esta pila. Esto se hace al principio del código de la función y al final justo antes del `return` que en MIPS lo realizamos con `jr $ra`.
+
+El _call stack_ en MIPS crece hacia abajo desde la dirección de memoria 0x7FFFFFFC que es el valor de `$sp` al inicio del programa. Por eso restamos para hacer lugar en la pila y sumamos para eliminar elementos.
+
+![Memoria en MIPS](img/mips-memory.png "Memoria en MIPS")
